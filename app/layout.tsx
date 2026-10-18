@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="id" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <header className="flex justify-center pt-6">
-        <Menu />
+          <Menu />
         </header>
         <main className="flex-1 p-4">{children}</main>
       </body>

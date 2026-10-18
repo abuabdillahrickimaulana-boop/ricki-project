@@ -14,7 +14,8 @@ export default function Menu() {
   return (
     <nav className="flex gap-3 p-2 justify-center">
       {links.map((link) => {
-        const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
+        const isActive =
+          pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
         return (
           <Link
             key={link.href}
