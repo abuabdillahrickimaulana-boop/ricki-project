@@ -4,16 +4,17 @@ import { usePathname } from "next/navigation";
 
 const links = [
   { href: "/", label: "Beranda" },
+  { href: "/blog", label: "Blog" },
   { href: "/tentang", label: "Tentang" },
   { href: "/kontak", label: "Kontak" },
 ];
-export default function Navbar() {
+export default function Menu() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex gap-3 p-2">
+    <nav className="flex gap-3 p-2 justify-center">
       {links.map((link) => {
-        const isActive = pathname === link.href;
+        const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
         return (
           <Link
             key={link.href}
