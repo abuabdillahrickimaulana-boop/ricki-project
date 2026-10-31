@@ -8,15 +8,16 @@ export default function Home() {
     year: "numeric",
   }).format(today);
 
-  let masehi = new Intl.DateTimeFormat("id-ID", {
+  let hari = new Intl.DateTimeFormat("id-ID", {
     weekday: "long",
+  }).format(today);
+  hari = hari.replace("Minggu", "Ahad");
+
+  const tanggalMasehi = new Intl.DateTimeFormat("id-ID", {
     day: "numeric",
     month: "long",
     year: "numeric",
   }).format(today);
-
-  // GANTI MINGGU JADI AHAD
-  masehi = masehi.replace("Minggu", "Ahad");
 
   return (
     <div className="min-h-screen flex flex-col items-center pt-20 px-4">
@@ -37,9 +38,24 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="mt-8 bg-white px-6 py-3 rounded-full border shadow-sm text-center">
-        <p className="font-semibold text-green-800">{hijriyah}</p>
-        <p className="text-gray-600">{masehi}</p>
+      <div className="mt-8 bg-white px-8 py-4 rounded-full border shadow-sm flex flex-col items-center justify-center">
+        {" "}
+        {/* <-- GANTI className */}
+        <p className="font-bold text-green-700 text-center text-lg leading-none">
+          {" "}
+          {/* <-- GANTI JADI Sabtu Hijau Tengah */}
+          {hari}
+        </p>
+        <p className="font-semibold text-green-800 text-center mt-1">
+          {" "}
+          {/* <-- TETAP Hijriyah */}
+          {hijriyah}
+        </p>
+        <p className="text-gray-500 text-sm text-center mt-1">
+          {" "}
+          {/* <-- GANTI pakai tanggalMasehi */}
+          {tanggalMasehi}
+        </p>
       </div>
 
       <PrayerTimes />
