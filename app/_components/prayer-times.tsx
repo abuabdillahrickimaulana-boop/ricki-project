@@ -91,7 +91,9 @@ export default function PrayerTimes() {
       <div className="flex justify-between items-start mb-4">
         <div>
           <h1 className="text-2xl font-bold">Jadwal Sholat</h1>
-          <p className="text-sm text-gray-500">{city}, {country}</p>
+          <p className="text-sm text-gray-500">
+            {city}, {country}
+          </p>
         </div>
         <p className="text-xl font-mono font-bold">{now.toLocaleTimeString("id-ID")}</p>
       </div>
@@ -102,13 +104,27 @@ export default function PrayerTimes() {
           {countdown.hours > 0 && `${countdown.hours} jam `}
           {countdown.minutes} menit {countdown.seconds} detik lagi
         </p>
-        <p className="text-sm mt-1 text-green-400">Waktu {nextPrayer!.name}: {nextPrayer!.time}</p>
+        <p className="text-sm mt-1 text-green-400">
+          Waktu {nextPrayer!.name}: {nextPrayer!.time}
+        </p>
       </div>
 
       <form onSubmit={handleSearch} className="flex gap-2 mb-6">
-        <input value={cityInput} onChange={(e) => setCityInput(e.target.value)} className="border p-2 rounded w-1/2 text-sm" placeholder="Kota" />
-        <input value={countryInput} onChange={(e) => setCountryInput(e.target.value)} className="border p-2 rounded w-1/2 text-sm" placeholder="Negara" />
-        <button type="submit" className="bg-black text-white px-4 rounded text-sm">Cari</button>
+        <input
+          value={cityInput}
+          onChange={(e) => setCityInput(e.target.value)}
+          className="border p-2 rounded w-1/2 text-sm"
+          placeholder="Kota"
+        />
+        <input
+          value={countryInput}
+          onChange={(e) => setCountryInput(e.target.value)}
+          className="border p-2 rounded w-1/2 text-sm"
+          placeholder="Negara"
+        />
+        <button type="submit" className="bg-black text-white px-4 rounded text-sm">
+          Cari
+        </button>
       </form>
 
       <div className="space-y-3">
@@ -130,7 +146,11 @@ export default function PrayerTimes() {
             >
               <div className="flex items-center gap-2">
                 <span className={isNext ? "font-bold text-green-800" : ""}>{prayer.name}</span>
-                {isNext && <span className="bg-green-600 text-white px-2 py-0.5 rounded-full animate-pulse text-xs">Selanjutnya</span>}
+                {isNext && (
+                  <span className="bg-green-600 text-white px-2 py-0.5 rounded-full animate-pulse text-xs">
+                    Selanjutnya
+                  </span>
+                )}
               </div>
               <b className={isNext ? "text-green-700 text-lg" : ""}>{prayer.time}</b>
             </div>

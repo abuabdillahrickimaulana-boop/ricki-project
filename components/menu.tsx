@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTema } from "@/context/tema-context";
+import { useFavorit } from "@/context/favorit-context";
 
 const links = [
   { href: "/", label: "Beranda" },
@@ -10,7 +12,10 @@ const links = [
 ];
 export default function Menu() {
   const pathname = usePathname();
-
+  const { gelap } = useTema();
+  const { daftar } = useFavorit();
+  const jumlahFavorit = daftar.length;
+  
   return (
     <nav className="flex gap-3 p-2 justify-center">
       {links.map((link) => {
@@ -24,8 +29,16 @@ export default function Menu() {
           >
             {link.label}
           </Link>
-        );
-      })}
-    </nav>
+      );
+    })}
+
+     <span className="ml-auto text-sm text-slate-600">
+        Favorit: {jumlahFavorit}
+      </span>
+
+     <span className="ml-2 text-xs text-slate-500">
+        Tema: {gelap ? "Gelap" : "Terang"}
+      </span>
+   </nav>
   );
 }

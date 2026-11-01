@@ -1,4 +1,4 @@
-import DaftarTulisan from "./daftar-tulisan";
+import DaftarTulisan from "./_components/daftar-tulisan";
 
 const TULISAN = ["belajar-nextjs", "hal-baru", "target-tahun-ini"];
 
