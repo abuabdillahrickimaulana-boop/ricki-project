@@ -1,4 +1,4 @@
-import KonversiSuhu from "./konversi-suhu";
+import KonversiSuhu from "./_components/konversi-suhu";
 
 export default function AlatPage() {
   return (

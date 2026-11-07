@@ -1,4 +1,5 @@
-import PrayerTimes from "./components/PrayerTimes";
+import PrayerTimes from "./_components/prayer-times";
+import TombolFavorit from "@/components/tombol-favorit";
 
 export default function Home() {
   const today = new Date();
@@ -59,6 +60,10 @@ export default function Home() {
       </div>
 
       <PrayerTimes />
+      <PrayerTimes />
+      <div className="mt-8">
+        <TombolFavorit slug={`hikmah-${tanggalMasehi}`} />
+      </div>
     </div>
   );
 }

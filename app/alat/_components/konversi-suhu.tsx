@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import InputCelcius from "./input-celcius";
+import InputCelcius from "./input-celsius";
 import TampilFahrenheit from "./tampil-fahrenheit";
 
 export default function KonversiSuhu() {
