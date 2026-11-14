@@ -1,0 +1,321 @@
+.page {
+  margin: 0 auto;
+  width: min(100%, 44rem);
+  padding: 2rem 1.5rem 4rem;
+}
+
+.card {
+  border: 1px solid #dbe3ef;
+  border-radius: 1rem;
+  background: white;
+  padding: 1.25rem;
+  box-shadow: 0 12px 32px rgb(15 23 42 / 7%);
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.inputWrapper {
+  flex: 1 1 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #bfdbfe;
+  border-radius: 0.625rem;
+  background-color: #eff6ff;
+  padding: 0 0.85rem;
+}
+
+.input {
+  min-width: 0;
+  flex: 1;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.625rem;
+  padding: 0.7rem 0.85rem;
+}
+
+.button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.7rem 1.5rem;
+  color: white;
+  font-weight: 700;
+  background: #047857;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.filter {
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: white;
+  padding: 0.4rem 0.8rem;
+  color: #475569;
+}
+
+.filterActive {
+  border-color: #0f766e;
+  background: #ccfbf1;
+  color: #115e59;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+}
+
+.itemText {
+  color: #1e293b;
+}
+
+.done {
+  color: #15803d;
+  font-weight: 700;
+  background-color: #dcfce7;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.remove {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: #be123c;
+  font-weight: 700;
+}
+
+.note {
+  margin-top: 1rem;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.prioritasTinggi {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.prioritasSedang {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.prioritasRendah {
+  background-color: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.deadline {
+  font-size: 13px;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.search {
+  width: 100%;
+  margin-top: 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.625rem;
+  padding: 0.7rem 0.85rem;
+  background: #f8fafc;
+}
+
+.search:focus {
+  outline: none;
+  border-color: #0f766e;
+  background: white;
+}
+
+.inputTeks {
+  border: none;
+  background: transparent;
+  padding: 0.7rem 0;
+  width: 100%;
+  outline: none;
+}
+
+.inputPrioritas {
+  flex: 1;
+  background-color: #fefce8;
+  border-color: #fde68a;
+}
+
+.inputTanggal {
+  flex: 1;
+  background-color: #faf5ff;
+  border-color: #ddd6fe;
+}
+
+.plusIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border-radius: 999px;
+  background-color: #059669;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.page.terang {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.page.gelap {
+  background: #0f172a;
+  color: white;
+}
+
+.card.terang {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.card.gelap {
+  background: #0f172a;
+  color: white;
+}
+
+.tombolTema {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-bottom: 1rem;
+}
+
+.page.gelap h1 {
+  color: white;
+}
+
+.page.gelap p {
+  color: #cbd5e1;
+}
+
+.gelap .inputWrapper {
+  background: #1e293b;
+  border-color: #475569;
+}
+
+.gelap .inputTeks {
+  color: white;
+}
+
+.gelap .inputTeks::placeholder {
+  color: #94a3b8;
+}
+
+.gelap .inputPrioritas,
+.gelap .inputTanggal {
+  background: #1e293b;
+  color: white;
+  border-color: #475569;
+}
+
+.gelap .search {
+  background: #1e293b;
+  color: white;
+  border-color: #475569;
+}
+
+.gelap .search::placeholder {
+  color: #94a3b8;
+}
+
+.gelap .tombolTema {
+  background: white;
+  color: #0f172a;
+}
+
+.gelap .inputTanggal {
+  color-scheme: dark;
+}
+
+.gelap .inputTanggal::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(2);
+  opacity: 1 !important;
+  cursor: pointer;
+}
+
+.card.gelap .list {
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.card.gelap .item {
+  background: #1e293b;
+  border: 1px solid #475569;
+  border-radius: 12px;
+}
+
+.card.gelap .item + .item {
+  border-top: 1px solid #475569;
+}
+
+.card.gelap .itemText {
+  color: #f8fafc;
+}
+
+.card.gelap .done {
+  color: #dcfce7;
+  background-color: #14532d;
+}
+
+.card.gelap .deadline {
+  color: #cbd5e1;
+}
+
+.card.terang .list {
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  overflow: visible;
+}
+
+.card.terang .item {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgb(15 23 42 / 5%);
+}
+
+.card.terang .item + .item {
+  border-top: 1px solid #e2e8f0;
+}

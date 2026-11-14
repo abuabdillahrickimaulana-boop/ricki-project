@@ -24,9 +24,7 @@ export function FavoritProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <FavoritContext.Provider value={{ daftar, ubahFavorit }}>
-      {children}
-    </FavoritContext.Provider>
+    <FavoritContext.Provider value={{ daftar, ubahFavorit }}>{children}</FavoritContext.Provider>
   );
 }
 
