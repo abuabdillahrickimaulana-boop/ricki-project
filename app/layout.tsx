@@ -1,8 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
-import { TemaProvider } from "@/context/tema-context";
-import { FavoritProvider } from "@/context/favorit-context";
+import { TemaProvider } from "@/contexts/tema-context";
+import { FavoritProvider } from "@/contexts/favorit-context";
+import { TodoProvider } from "@/contexts/todo-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,12 +19,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="id" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <TemaProvider>
-          <FavoritProvider>
-            <Header />
-            <main className="flex-1 p-4">{children}</main>
-          </FavoritProvider>
-        </TemaProvider>
+        <TodoProvider>
+          <TemaProvider>
+            <FavoritProvider>
+              <Header />
+              <main className="flex-1 p-4">{children}</main>
+            </FavoritProvider>
+          </TemaProvider>
+        </TodoProvider>
       </body>
     </html>
   );

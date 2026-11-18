@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 
 type Tema = {
@@ -14,11 +14,14 @@ export function TemaProvider({ children }: { children: ReactNode }) {
   const [gelap, setGelap] = useState(false);
   const ubahTema = () => setGelap((nilaiLama) => !nilaiLama);
 
-  return (
-    <TemaContext.Provider value={{ gelap, ubahTema }}>
-      {children}
-    </TemaContext.Provider>
-  );
+  useEffect(() => {
+    document.documentElement.classList.toggle("gelap", gelap);
+    document.documentElement.classList.toggle("terang", !gelap);
+    document.body.style.backgroundColor = gelap ? "#09090b" : "#ffffff";
+    document.body.style.color = gelap ? "#ededed" : "#171717";
+  }, [gelap]);
+
+  return <TemaContext.Provider value={{ gelap, ubahTema }}>{children}</TemaContext.Provider>;
 }
 
 export function useTema() {
