@@ -11,7 +11,8 @@ import TodoList from "./todo-list";
 export default function TodoApp({ temaGelap }: { temaGelap: boolean }) {
   const {
     todos,
-    sudahMemuat,
+    sedangMemuat,
+    error,
     tambahTodo,
     ubahSelesai,
     hapusTodo,
@@ -39,7 +40,10 @@ export default function TodoApp({ temaGelap }: { temaGelap: boolean }) {
   const jumlahBelumSelesai = todos.filter((todo) => !todo.selesai).length;
   const jumlahSelesai = todos.filter((todo) => todo.selesai).length;
   const kategoriUntukFilter = Array.from(
-    new Set([...daftarKategori, ...todos.map((todo) => todo.kategori).filter(Boolean)]),
+    new Set([
+      ...daftarKategori,
+      ...todos.map((todo) => todo.kategori).filter((k): k is string => Boolean(k)),
+    ]),
   );
   const tambahKategori = () => {
     const nama = kategoriBaru.trim();
@@ -59,9 +63,8 @@ export default function TodoApp({ temaGelap }: { temaGelap: boolean }) {
     if (kategori === filterKategori) setKategori("Kuliah");
   };
 
-  if (!sudahMemuat) {
-    return <p className={styles.note}>Memuat daftar tugas...</p>;
-  }
+  if (sedangMemuat) return <p className={styles.note}>Memuat daftar tugas dari server...</p>;
+  if (error) return <p className={styles.note}>{error}</p>;
 
   return (
     <div className={[styles.card, temaGelap ? styles.gelap : styles.terang].join(" ")}>

@@ -29,14 +29,14 @@ function TodoItem({
   const [sedangEdit, setSedangEdit] = useState(false);
   const [teksEdit, setTeksEdit] = useState(todo.teks);
   const [prioritasEdit, setPrioritasEdit] = useState<"Tinggi" | "Sedang" | "Rendah">(
-    todo.prioritas,
+    todo.prioritas ?? "Sedang",
   );
   const [deadlineEdit, setDeadlineEdit] = useState(todo.deadline);
   const [kategoriEdit, setKategoriEdit] = useState(todo.kategori);
 
   function mulaiEdit() {
     setTeksEdit(todo.teks);
-    setPrioritasEdit(todo.prioritas);
+    setPrioritasEdit(todo.prioritas ?? "Sedang");
     setDeadlineEdit(todo.deadline);
     setKategoriEdit(todo.kategori);
     setSedangEdit(true);
@@ -44,7 +44,7 @@ function TodoItem({
 
   function simpanEdit() {
     if (!teksEdit.trim()) return;
-    saatDiedit(todo.id, teksEdit.trim(), prioritasEdit, deadlineEdit, kategoriEdit);
+    saatDiedit(todo.id, teksEdit.trim(), prioritasEdit, deadlineEdit ?? "", kategoriEdit ?? "");
     setSedangEdit(false);
   }
   if (sedangEdit) {

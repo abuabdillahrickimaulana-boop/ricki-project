@@ -6,7 +6,7 @@ import styles from "@/styles/todo.module.css";
 
 export default function TodoDetail({ id }: { id: string }) {
   const router = useRouter();
-  const { todos, sudahMemuat } = useTodos();
+  const { todos, sedangMemuat, error } = useTodos();
   const todo = todos.find((item) => String(item.id) === id) ?? null;
   const sisaHari = todo?.deadline
     ? Math.ceil(
@@ -18,8 +18,10 @@ export default function TodoDetail({ id }: { id: string }) {
     <section>
       <h1 className="mb-5 text-3xl font-bold text-red">Detail tugas</h1>
       <section className={styles.card}>
-        {!sudahMemuat ? (
-          <p>Memuat tugas...</p>
+        {sedangMemuat ? (
+          <p>Memuat daftar tugas dari server...</p>
+        ) : error ? (
+          <p>{error}</p>
         ) : todo ? (
           <>
             <h2 className="text-xl font-bold" style={{ color: "#111827" }}>
