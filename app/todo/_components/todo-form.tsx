@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import styles from "@/styles/todo.module.css";
 
 type TodoFormProps = {
@@ -9,13 +10,16 @@ type TodoFormProps = {
     prioritas: "Tinggi" | "Sedang" | "Rendah",
     deadline: string,
     kategori: string,
-  ) => void;
+  ) => Promise<void>;
   daftarKategori: string[];
   kategori: string;
   saatPilihKategori: (kategori: string) => void;
   kategoriBaru: string;
   saatUbahKategoriBaru: (nilai: string) => void;
   saatTambahKategori: () => void;
+};
+type TodoFormValues = {
+  teks: string;
 };
 
 export default function TodoForm({
@@ -27,35 +31,58 @@ export default function TodoForm({
   saatUbahKategoriBaru,
   saatTambahKategori,
 }: TodoFormProps) {
-  const [teks, setTeks] = useState("");
   const [prioritas, setPrioritas] = useState<"Tinggi" | "Sedang" | "Rendah">("Sedang");
   const [deadline, setDeadline] = useState("");
 
-  function kirimForm(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const teksBersih = teks.trim();
-    if (!teksBersih) return;
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<TodoFormValues>({
+    defaultValues: { teks: "" },
+  });
 
-    saatTambah(teksBersih, prioritas, deadline, kategori);
-    setTeks("");
-    setPrioritas("Sedang");
-    setDeadline("");
+  async function kirim(data: TodoFormValues) {
+    try {
+      await saatTambah(data.teks.trim(), prioritas, deadline, kategori);
+      reset();
+      setPrioritas("Sedang");
+      setDeadline("");
+    } catch (error) {
+      setError("root.server", {
+        type: "server",
+        message: error instanceof Error ? error.message : "Gagal menyimpan Todo.",
+      });
+    }
   }
 
   return (
     <form
       className={styles.form}
-      onSubmit={kirimForm}
+      onSubmit={handleSubmit(kirim)}
+      noValidate
       style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}
     >
       <div className={styles.inputWrapper} style={{ height: "44px" }}>
         <input
           className={[styles.input, styles.inputTeks].join(" ")}
-          value={teks}
-          onChange={(event) => setTeks(event.target.value)}
+          {...register("teks", {
+            required: "Tulis Todo terlebih dahulu.",
+            validate: (nilai) => nilai.trim().length >= 3 || "Todo minimal 3 karakter.",
+          })}
           placeholder="Tugas baru..."
           aria-label="Tugas baru"
+          aria-invalid={Boolean(errors.teks)}
+          aria-describedby={errors.teks ? "teks-error" : undefined}
+          disabled={isSubmitting}
         />
+        {errors.teks && (
+          <p id="teks-error" role="alert" style={{ color: "red", fontSize: "0.85rem" }}>
+            {errors.teks.message}
+          </p>
+        )}
       </div>
 
       <div style={{ display: "flex", gap: "0.5rem", alignItems: "flex-end" }}>
@@ -124,10 +151,16 @@ export default function TodoForm({
           className={styles.button}
           type="submit"
           style={{ height: "44px", boxSizing: "border-box", width: "130px", flex: "none" }}
+          disabled={isSubmitting}
         >
-          + Tugas
+          {isSubmitting ? "Mengirim..." : "+ Tugas"}
         </button>
       </div>
+      {errors.root?.server && (
+        <p role="alert" style={{ color: "red", fontSize: "0.85rem" }}>
+          {errors.root.server.message}
+        </p>
+      )}
     </form>
   );
 }

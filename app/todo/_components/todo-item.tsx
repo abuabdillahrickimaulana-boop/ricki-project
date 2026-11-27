@@ -14,15 +14,15 @@ function TodoItem({
   saatDipindah,
 }: {
   todo: Todo;
-  saatDicentang: (id: number) => void;
-  saatDihapus: (id: number) => void;
+  saatDicentang: (id: number) => Promise<void>;
+  saatDihapus: (id: number) => Promise<void>;
   saatDiedit: (
     id: number,
     teksBaru: string,
     prioritasBaru: "Tinggi" | "Sedang" | "Rendah",
     deadlineBaru: string,
     kategoriBaru: string,
-  ) => void;
+  ) => Promise<void>;
   saatDiduplikat: (id: number) => void;
   saatDipindah: (idDari: number, idTujuan: number) => void;
 }) {
@@ -33,6 +33,8 @@ function TodoItem({
   );
   const [deadlineEdit, setDeadlineEdit] = useState(todo.deadline);
   const [kategoriEdit, setKategoriEdit] = useState(todo.kategori);
+  const [error, setError] = useState<string | null>(null);
+  const [sedangProses, setSedangProses] = useState(false);
 
   function mulaiEdit() {
     setTeksEdit(todo.teks);
@@ -42,10 +44,48 @@ function TodoItem({
     setSedangEdit(true);
   }
 
-  function simpanEdit() {
+  async function simpanEdit() {
     if (!teksEdit.trim()) return;
-    saatDiedit(todo.id, teksEdit.trim(), prioritasEdit, deadlineEdit ?? "", kategoriEdit ?? "");
-    setSedangEdit(false);
+    setSedangProses(true);
+    setError(null);
+    try {
+      await saatDiedit(
+        todo.id,
+        teksEdit.trim(),
+        prioritasEdit,
+        deadlineEdit ?? "",
+        kategoriEdit ?? "",
+      );
+      setSedangEdit(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Gagal menyimpan edit.");
+    } finally {
+      setSedangProses(false);
+    }
+  }
+
+  async function handleCentang() {
+    setSedangProses(true);
+    setError(null);
+    try {
+      await saatDicentang(todo.id);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Gagal mengubah status.");
+    } finally {
+      setSedangProses(false);
+    }
+  }
+
+  async function handleHapus() {
+    setSedangProses(true);
+    setError(null);
+    try {
+      await saatDihapus(todo.id);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Gagal menghapus Todo.");
+    } finally {
+      setSedangProses(false);
+    }
   }
   if (sedangEdit) {
     return (
@@ -84,8 +124,13 @@ function TodoItem({
           placeholder="Kategori"
         />
         <div style={{ display: "flex", gap: "0.5rem" }}>
-          <button className={styles.button} type="button" onClick={simpanEdit}>
-            Simpan
+          <button
+            className={styles.button}
+            type="button"
+            onClick={simpanEdit}
+            disabled={sedangProses}
+          >
+            {sedangProses ? "Menyimpan..." : "Simpan"}
           </button>
           <button type="button" onClick={() => setSedangEdit(false)}>
             Batal
@@ -114,7 +159,8 @@ function TodoItem({
       <input
         type="checkbox"
         checked={todo.selesai}
-        onChange={() => saatDicentang(todo.id)}
+        onChange={handleCentang}
+        disabled={sedangProses}
         aria-label={`Tandai ${todo.teks} selesai`}
       />
       <Link
@@ -151,9 +197,14 @@ function TodoItem({
       <button className={styles.remove} onClick={() => saatDiduplikat(todo.id)} type="button">
         Duplikat
       </button>
-      <button className={styles.remove} onClick={() => saatDihapus(todo.id)} type="button">
-        Hapus
+      <button className={styles.remove} onClick={handleHapus} type="button" disabled={sedangProses}>
+        {sedangProses ? "Memproses..." : "Hapus"}
       </button>
+      {error && (
+        <p role="alert" style={{ color: "red", fontSize: "0.85rem" }}>
+          {error}
+        </p>
+      )}
     </li>
   );
 }
