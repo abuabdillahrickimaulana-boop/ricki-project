@@ -14,15 +14,15 @@ function TodoList({
   saatDipindah,
 }: {
   todos: Todo[];
-  saatDicentang: (id: number) => void;
-  saatDihapus: (id: number) => void;
+  saatDicentang: (id: number) => Promise<void>;
+  saatDihapus: (id: number) => Promise<void>;
   saatDiedit: (
     id: number,
     teksBaru: string,
     prioritasBaru: "Tinggi" | "Sedang" | "Rendah",
     deadlineBaru: string,
     kategoriBaru: string,
-  ) => void;
+  ) => Promise<void>;
   saatDiduplikat: (id: number) => void;
   saatDipindah: (idDari: number, idTujuan: number) => void;
 }) {
